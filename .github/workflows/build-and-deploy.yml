@@ -70,7 +70,7 @@ jobs:
         uses: Azure/aks-set-context@v3
         with:
           # Resource Group Name
-          resource-group: 'github-action-rg'
+          resource-group: 'github-actions-rg'
           # AKS Cluster Name
           cluster-name: 'abbykuok8s0902'
           # AKS Cluster Subscription
