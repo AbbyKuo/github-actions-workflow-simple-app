@@ -59,7 +59,7 @@ jobs:
         with:
           client-id: '205beffb-96a5-4ee7-8c82-ab42f85f430a'
           tenant-id: '05a141a6-f9b0-43a2-a0d0-ee2ed9348938'
-          subscription-id: '52ddba82-9f78-4f67-bc45-94f9aa09bfb4'
+          subscription-id: ${{ SECRETS.AZURE_SUBSCRIPTION_ID }}
         
       - name: Setup kubelogin
         uses: Azure/use-kubelogin@v1
@@ -72,9 +72,9 @@ jobs:
           # Resource Group Name
           resource-group: 'github-action-rg'
           # AKS Cluster Name
-          cluster-name: 'rayk8s0802demo'
+          cluster-name: 'abbykuok8s0902'
           # AKS Cluster Subscription
-          subscription: '52ddba82-9f78-4f67-bc45-94f9aa09bfb4'
+          subscription: ${{ SECRETS.AZURE_SUBSCRIPTION_ID }}
           # Get cluster admin credentials. Values: true or false
           admin: 'false'
           # Enables kubelogin for non-admin user scenario. Values: true or false
@@ -86,7 +86,7 @@ jobs:
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           CONTAINER_NAME: hello-world-app:${{ github.sha }}
-          AZURE_CONTAINER_REGISTRY: abbykuoacr0902.azurecr.io
+          AZURE_CONTAINER_REGISTRY: ${{ env.AZURE_CONTAINER_REGISTRY }}
         with:
           # File to run substitutions on
           input: 
