@@ -3,7 +3,7 @@ name: CI CD in Azure env
 env: 
   AZURE_CONTAINER_REGISTRY: 'abbykuoacr1202.azurecr.io'
   
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out CICD on GitHub Actions 🚀
 on:
   push:
     branches: ['master']
