@@ -33,7 +33,7 @@ jobs:
           # Container registry password
           password: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD}}
           # Container registry server url
-          login-server: ${{ Aenv.AZURE_CONTAINER_REGISTRY }}
+          login-server: ${{ env.AZURE_CONTAINER_REGISTRY }}
    
       # Push docker image to ACR    
       - name: Build and push
