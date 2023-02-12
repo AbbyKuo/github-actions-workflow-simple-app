@@ -56,7 +56,7 @@ jobs:
     steps:
       # Code checkout
       - name: Check out repository code
-        uses: actions/checkout@v3steps
+        uses: actions/checkout@v3
       
       # Logs in with your Azure credentials
       - name: Azure login
