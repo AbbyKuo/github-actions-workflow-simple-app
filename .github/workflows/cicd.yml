@@ -1,4 +1,8 @@
 name: CI CD in Azure env
+
+env: 
+  AZURE_CONTAINER_REGISTRY: ''
+  
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
@@ -84,9 +88,18 @@ jobs:
           # Enables kubelogin for non-admin user scenario. Values: true or false
           use-kubelogin: 'true'
           
-      # Substitue environment variables in a file
-      - name: 
-        uses: 
+      # Substitute environment variables in a file
+      - name: envsubst-action
+        uses: danielr1996/envsubst-action@1.1.0
+        env: 
+          MONGODB_URI: 
+          CONTAINER_NAME:
+          AZURE_CONTAINER_REGISTRY: 
+        with:
+          # File to run substitutions on
+          input: kubernetes/hello-world-deployment.yaml
+          # File to write result to
+          output: hello-world-deployment.yaml
       
       
       # Deploy to Kubernetes cluster 
@@ -95,7 +108,7 @@ jobs:
         with: 
           action: deploy
           manifests: |
-            kubernetes/hello-world-deployment.yaml
+            hello-world-deployment.yaml
             kubernetes/hello-world-service.yaml
           images: |
             user/hello-world-app:${{ github.sha }}
