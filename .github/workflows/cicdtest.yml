@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: abbykuoacr1202/hello-world-app:${{ github.sha }}
+          tags: abbykuoacr1202.azurecr.io/hello-world-app:${{ github.sha }}
           file: ./Dockerfile
  
   Deploy-to-AKS:
@@ -111,7 +111,7 @@ jobs:
             hello-world-deployment.yaml
             kubernetes/hello-world-service.yaml
           images: |
-            abbykuoacr1202/hello-world-app:${{ github.sha }}
+            abbykuoacr1202.azurecr.io/hello-world-app:${{ github.sha }}
             
             
           
