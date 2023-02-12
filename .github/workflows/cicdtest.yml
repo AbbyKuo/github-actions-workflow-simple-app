@@ -71,7 +71,7 @@ jobs:
         uses: Azure/use-kubelogin@v1
         with:
           # The version of kubelogin to use. Defaults to the latest version.
-          kubelogin-version: 'latest'
+          kubelogin-version: 'v0.0.25'
         
       # Azure Kubernetes set context
       - name: Azure Kubernetes set context
