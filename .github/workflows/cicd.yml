@@ -1,7 +1,7 @@
 name: CI CD in Azure env
 
 env: 
-  AZURE_CONTAINER_REGISTRY: ''
+  AZURE_CONTAINER_REGISTRY: 'abbykuoacr1202.azurecr.io'
   
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
@@ -29,18 +29,18 @@ jobs:
         uses: Azure/docker-login@v1
         with:
           # Container registry username
-          username: # default is 
+          username: 'abbykuoacr1202' 
           # Container registry password
-          password: # default is 
+          password: {{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }} 
           # Container registry server url
-          login-server: # default is https://index.docker.io/v1/
+          login-server: {{ env.AZURE_CONTAINER_REGISTRY }}
    
       # Push docker image to ACR    
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: user/hello-world-app:${{ github.sha }}
+          tags: abbykuoacr1202/hello-world-app:${{ github.sha }}
           file: ./Dockerfile
  
   Deploy-to-AKS:
@@ -78,11 +78,11 @@ jobs:
         uses: Azure/aks-set-context@v3
         with:
           # Resource Group Name
-          resource-group: 
+          resource-group: 'github_actions_rg'
           # AKS Cluster Name
-          cluster-name: 
+          cluster-name: 'abbykuok8s1202'
           # AKS Cluster Subscription
-          subscription: # optional
+          subscription: {{ secrets.AZURE_SUBSCRIPTION_ID}}
           # Get cluster admin credentials. Values: true or false
           admin: 'false'
           # Enables kubelogin for non-admin user scenario. Values: true or false
@@ -92,9 +92,9 @@ jobs:
       - name: envsubst-action
         uses: danielr1996/envsubst-action@1.1.0
         env: 
-          MONGODB_URI: 
-          CONTAINER_NAME:
-          AZURE_CONTAINER_REGISTRY: 
+          MONGODB_URI: {{ secrets.MOGODI_URI }}
+          CONTAINER_NAME: hello-world-app:${{ github.sha }}
+          AZURE_CONTAINER_REGISTRY: {{ env.AZURE_CONTAINER_REGISTRY }}
         with:
           # File to run substitutions on
           input: kubernetes/hello-world-deployment.yaml
@@ -111,7 +111,7 @@ jobs:
             hello-world-deployment.yaml
             kubernetes/hello-world-service.yaml
           images: |
-            user/hello-world-app:${{ github.sha }}
+            abbykuoacr1202/hello-world-app:${{ github.sha }}
             
           
       
